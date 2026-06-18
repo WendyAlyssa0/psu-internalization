@@ -1,0 +1,331 @@
+/* ==========================================================================
+   DIAGNOSTIC & RESET CONFIGURATION
+   ========================================================================== */
+:root {
+    --bg-main: #f8fafc;
+    --card-bg: #ffffff;
+    --text-dark: #0f172a;
+    --text-muted: #64748b;
+    --primary: #0f1c2e;
+    --primary-hover: #1e293b;
+    --border-color: #e2e8f0;
+    --focus-ring: rgba(148, 163, 184, 0.15);
+    --error-bg: #fef2f2;
+    --error-text: #b91c1c;
+    --error-border: #fca5a5;
+    --success-bg: #f0fdf4;
+    --success-text: #166534;
+    --success-border: #bbf7d0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family:'Oswald',sans-serif;    
+    background-color: var(--bg-main);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+   LAYOUT CONTAINERS & CARDS
+   ========================================================================== */
+.page {
+    width: 100%;
+    max-width: 800px;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 2rem 2.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-header-titles h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.02em;
+}
+
+.card-header-titles p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+.card-body {
+    padding: 2.5rem;
+}
+
+/* ==========================================================================
+   NAVIGATION & ACTIONS ELEMENTS
+   ========================================================================== */
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+    background: #ffffff;
+}
+
+.back-btn:hover {
+    color: var(--primary);
+    background: var(--bg-main);
+    border-color: #cbd5e1;
+}
+
+/* ==========================================================================
+   ALERTS & FEEDBACK SYSTEM (Updated legacy alerts to match new look)
+   ========================================================================== */
+.success-box,
+.alert-success {
+    background-color: var(--success-bg);
+    color: var(--success-text);
+    border: 1px solid var(--success-border);
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.error-box,
+.alert-danger {
+    background-color: var(--error-bg);
+    color: var(--error-text);
+    border: 1px solid var(--error-border);
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+}
+
+.alert-danger ul {
+    padding-left: 1.25rem;
+    margin-top: 0.25rem;
+}
+
+.alert-danger li {
+    margin-bottom: 0.25rem;
+}
+
+.alert-danger li:last-child {
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   FORM CONTROLS & STRUCTURES
+   ========================================================================== */
+.form-section-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin: 2rem 0 1.25rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.form-section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border-color);
+}
+
+.form-section-title:first-of-type {
+    margin-top: 0;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* Structural Column Mappings matching create grid rules */
+.col-12 { grid-column: span 12; }
+.col-6  { grid-column: span 6; }
+.col-5  { grid-column: span 5; }
+.col-4  { grid-column: span 4; }
+.col-3  { grid-column: span 3; }
+.col-2  { grid-column: span 2; }
+
+label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+label .required {
+    color: var(--error-text);
+    margin-left: 2px;
+}
+
+input,
+select,
+input[type= "text"],
+input[type= "email"],
+input[type= "password"],
+input[type= "date"] {
+    width: 100%;
+    height: 44px; /* Explicit height matching the system base matrix */
+    padding: 0 0.875rem; /* Balanced horizontal padding for absolute alignment */
+    font-family: inherit;
+    font-size: 0.925rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: var(--text-dark);
+    outline: none;
+    transition: all 0.15s ease-in-out;
+    box-sizing: border-box; /* Forces padding to stay inside the 44px boundary */
+}
+
+input:focus, select:focus {
+    border-color: #94a3b8;
+    box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+/* System Provisioned Readonly Inputs */
+input[readonly] {
+    background-color: var(--bg-main);
+    color: var(--text-muted);
+    cursor: not-allowed;
+    border-style: dashed;
+}
+
+/* ==========================================================================
+   SUBMIT BAR & UTILITIES
+   ========================================================================== */
+.form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+    margin-top: 2rem;
+}
+
+.btn-cancel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-muted);
+    background: transparent;
+    transition: all 0.15s ease;
+}
+
+.btn-cancel:hover {
+    color: var(--text-dark);
+    background: var(--bg-main);
+}
+
+.btn-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+    background-color: var(--primary);
+    transition: all 0.15s ease;
+}
+
+.btn-submit:hover {
+    background-color: var(--primary-hover);
+}
+
+/* ==========================================================================
+   ANIMATIONS & RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 1rem 0.5rem;
+    }
+    
+    .card-header {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        gap: 1.25rem;
+        padding: 1.5rem;
+    }
+    
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .form-grid {
+        gap: 1rem;
+    }
+
+    /* Collapse grid columns cleanly on smaller viewports */
+    .col-2, .col-3, .col-4, .col-5, .col-6 {
+        grid-column: span 12;
+    }
+    
+    .form-actions {
+        flex-direction: column-reverse;
+        width: 100%;
+    }
+    
+    .btn-cancel, .btn-submit {
+        width: 100%;
+    }
+}

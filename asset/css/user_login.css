@@ -1,0 +1,419 @@
+/* RESET */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Oswald', sans-serif;
+}
+
+/* BODY */
+body {
+    background: #081226;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* CARD WRAPPER */
+.login-wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 900px;
+    min-height: 560px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    background: #fff;
+}
+
+/* ── LEFT PANEL — FORM ── */
+.login-left {
+    flex: 1;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 52px 48px;
+}
+
+.form-header {
+    margin-bottom: 30px;
+}
+
+.form-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #081226;
+    letter-spacing: 0.02em;
+}
+
+.form-subtitle {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-top: 6px;
+}
+
+/* ERROR */
+.error {
+    background: #fff0f0;
+    color: #c40000;
+    border-left: 3px solid #c40000;
+    padding: 11px 14px;
+    border-radius: 6px;
+    margin-bottom: 22px;
+    font-size: 13px;
+    text-align: left;
+}
+
+/* FIELD */
+.field {
+    margin-bottom: 16px;
+}
+
+.field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: #0b2343;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+}
+
+.field-wrap {
+    position: relative;
+}
+
+.field-wrap i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+    color: #b0bec5;
+    pointer-events: none;
+    border-color: c5a059;
+    box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
+}
+
+.field-wrap input {
+    width: 100%;
+    padding: 13px 14px 13px 42px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Oswald', sans-serif;
+    color: #0b2343;
+    background: #f8fafc;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.field-wrap input:focus {
+    border-color: #005fd5;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(0, 95, 213, 0.1);
+}
+
+.field-wrap input::placeholder {
+    color: #c0cad8;
+}
+
+/* OPTIONS */
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 26px;
+    font-size: 13px;
+}
+
+.options label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #64748b;
+    cursor: pointer;
+}
+
+.options input[type="checkbox"] {
+    accent-color: #005fd5;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.options a {
+    color: #c5a059;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.options a:hover {
+    color: #0b2343;
+}
+
+/* LOGIN BUTTON */
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background: #081226;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.login-btn:hover {
+    background: #c5a059;
+    color: #081226;
+    transform: translateY(-1px);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+.login-btn i {
+    font-size: 13px;
+}
+
+/* FORM FOOTER */
+.form-footer {
+    text-align: center;
+    font-size: 12px;
+    color: #c0cad8;
+    margin-top: 24px;
+}
+
+/* ── RIGHT PANEL — WELCOME ── */
+.login-right {
+    width: 42%;
+    flex-shrink: 0;
+    background: #081226;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+/* WAVE TOP DESIGN */
+.top-design {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+}
+
+.wave-dark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    background: #060e1d;
+    clip-path: polygon(
+        0 0, 100% 0, 100% 30%,
+        85% 38%, 65% 70%, 40% 45%,
+        15% 25%, 0 40%
+    );
+}
+
+.wave-medium {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    background: #081226;
+    clip-path: polygon(
+        0 20%, 15% 10%, 40% 30%,
+        65% 55%, 85% 25%, 100% 12%,
+        100% 45%, 85% 55%, 65% 85%,
+        40% 60%, 15% 35%, 0 50%
+    );
+}
+
+.wave-light {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    background: #c5a059;
+    clip-path: polygon(
+        0 25%, 15% 18%, 40% 38%,
+        65% 65%, 85% 38%, 100% 20%,
+        100% 50%, 85% 65%, 65% 92%,
+        40% 72%, 15% 48%, 0 60%
+    );
+}
+
+/* DECORATIVE CIRCLES */
+.deco-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    pointer-events: none;
+}
+
+.deco-circle.c1 { width: 260px; height: 260px; bottom: -80px; left: -80px; }
+.deco-circle.c2 { width: 160px; height: 160px; bottom: 30px;  left: 30px;  }
+.deco-circle.c3 { width: 80px;  height: 80px;  bottom: 120px; left: 20px;  }
+
+/* RIGHT CONTENT */
+.right-content {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 36px;
+    margin-top: 120px;
+}
+
+.welcome-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #c5a059;
+    margin-bottom: 14px;
+}
+
+.welcome-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #c5a059;
+    line-height: 1.15;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.welcome-title span {
+    color: #c5a059;
+}
+
+.welcome-quote {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.45);
+    margin-top: 16px;
+    line-height: 1.7;
+    font-weight: 300;
+}
+
+.welcome-quote small {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.28);
+}
+
+/* ICON CHIPS */
+.icon-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 28px;
+}
+
+.icon-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(197, 160, 89, 0.2);
+    border-radius: 20px;
+    padding: 7px 14px;
+    font-size: 12px;
+    color:rgba(255, 255, 255, 0.7);
+}
+
+.icon-chip i {
+    color: #c5a059;
+    font-size: 13px;
+}
+
+/* RIGHT FOOTER */
+.right-footer {
+    position: relative;
+    z-index: 2;
+    padding: 20px 36px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.right-footer-text {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.25);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+    .login-wrapper {
+        flex-direction: column;
+        min-height: unset;
+    }
+
+    .login-right {
+        width: 100%;
+        min-height: 220px;
+    }
+
+    .right-content {
+        margin-top: 100px;
+        padding: 28px 24px;
+    }
+
+    .login-left {
+        padding: 36px 28px;
+    }
+}
+
+.login-wrapper {
+    display: flex;
+    flex-direction: row; /* Standard: Left (Form) | Right (Welcome) */
+    transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.login-wrapper.reversed {
+    /* This single line swaps everything inside the wrapper automatically */
+    flex-direction: row-reverse;
+}
+
+.back-btn {
+    display: inline-block; /* Keeps it centered */
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #555;
+    background: transparent;
+    border: 1px solid #c5a059;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: #c5a059;
+    border-color: #bbb;
+    color: #333;
+}

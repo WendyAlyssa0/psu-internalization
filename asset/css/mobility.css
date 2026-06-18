@@ -1,0 +1,514 @@
+/* =========================
+   ROOT VARIABLES
+========================= */
+:root{
+    --primary:#0b2343;
+    --primary-light:#1e40af;
+
+    --success:#16a34a;
+    --warning:#f59e0b;
+    --danger:#dc2626;
+    --info:#0ea5e9;
+
+    --text:#1e293b;
+    --muted:#64748b;
+
+    --border:#e2e8f0;
+    --border-light:#f1f5f9;
+
+    --bg:#f8fafc;
+    --white:#ffffff;
+}
+
+/* =========================
+   RESET
+========================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:var(--bg);
+    font-family:'Oswald',sans-serif;
+    color:var(--text);
+    line-height:1.5;
+}
+
+/* =========================
+   PAGE HEADER
+========================= */
+.page-header{
+    margin-bottom:24px;
+}
+
+.page-header h1{
+    font-size:28px;
+    font-weight:700;
+    color:var(--primary);
+    margin-bottom:6px;
+}
+
+.page-header p{
+    font-size:14px;
+    color:var(--muted);
+    max-width:700px;
+}
+
+/* =========================
+   CONTENT CARDS
+========================= */
+.card{
+    background:#fff;
+    border:1px solid #dbe4f0;
+    border-radius:18px;
+    overflow:hidden;
+    margin-bottom:24px;
+    box-shadow:0 4px 16px rgba(15,23,42,.05);
+}
+
+/* =========================
+   CARD TITLE
+========================= */
+.card-title{
+    padding:18px 24px;
+    font-size:15px;
+    font-weight:600;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:#fff;
+    background:#0b2343;
+    border-bottom:none;
+}
+
+/* =========================
+   TABLE WRAPPER
+========================= */
+.card{
+    overflow-x:auto;
+}
+
+/* =========================
+   TABLE
+========================= */
+.table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.table thead{
+    background:#f1f5f9;
+}
+
+.table th{
+    padding:15px 18px;
+    color:#334155;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    border-bottom:1px solid #dbe4f0;
+}
+
+.table td{
+    padding:15px 18px;
+    font-size:13px;
+    color:#334155;
+    border-bottom:1px solid var(--border-light);
+    vertical-align:middle;
+}
+
+.table tbody tr{
+    transition:.15s ease;
+}
+
+.table tbody tr:hover{
+    background:#f8fafc;
+}
+
+.table tbody tr:last-child td{
+    border-bottom:none;
+}
+
+/* =========================
+   STATUS BADGES
+========================= */
+.status-badge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:6px 12px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.03em;
+}
+
+.status-approved{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.status-pending{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.status-rejected{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.status-active{
+    background:#dbeafe;
+    color:#1d4ed8;
+}
+
+.status-inactive{
+    background:#e5e7eb;
+    color:#475569;
+}
+
+/* =========================
+   APPROVAL BUTTONS
+========================= */
+.table button{
+    border:none;
+    border-radius:10px;
+    padding:8px 12px;
+    margin:2px;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:600;
+    transition:.2s ease;
+}
+
+.table button:hover{
+    transform:translateY(-2px);
+}
+
+.table button:nth-child(1){
+    background:#eff6ff;
+    color:#2563eb;
+}
+
+.table button:nth-child(2){
+    background:#f5f3ff;
+    color:#7c3aed;
+}
+
+.table button:nth-child(3){
+    background:#ecfdf5;
+    color:#16a34a;
+}
+
+.table button:nth-child(4){
+    background:#fff7ed;
+    color:#ea580c;
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+.empty-state{
+    padding:50px 20px;
+    text-align:center;
+    color:#94a3b8;
+    font-size:14px;
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+.card::-webkit-scrollbar{
+    height:8px;
+}
+
+.card::-webkit-scrollbar-track{
+    background:#f1f5f9;
+}
+
+.card::-webkit-scrollbar-thumb{
+    background:#cbd5e1;
+    border-radius:20px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media(max-width:1200px){
+
+    .table{
+        min-width:1100px;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .page-header h1{
+        font-size:24px;
+    }
+
+    .page-header p{
+        font-size:13px;
+    }
+
+    .stat-grid{
+        grid-template-columns:1fr;
+    }
+
+    .stat-card .value{
+        font-size:30px;
+    }
+
+}
+
+/* ==============================
+   WRAPPER
+============================== */
+.mobility-wrapper {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.mobility-header h2 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #0b2343;
+    letter-spacing: .01em;
+}
+
+.mobility-header p {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-top: 4px;
+}
+
+/* ==============================
+   CARD
+============================== */
+.mobility-card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #e2e8f2;
+    overflow: hidden;
+}
+
+/* ==============================
+   TOP GRID (3 COLS)
+============================== */
+.mobility-top {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: 1px solid #f0f3f9;
+}
+
+.mobility-section {
+    padding: 20px 22px;
+    border-right: 1px solid #f0f3f9;
+}
+
+.mobility-section:last-child {
+    border-right: none;
+}
+
+/* ==============================
+   SECTION TITLE
+============================== */
+.mobility-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 10.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: #94a3b8;
+    margin-bottom: 14px;
+}
+
+.mobility-section h3 i {
+    font-size: 14px;
+}
+
+/* ==============================
+   AVATAR ROW
+============================== */
+.mobility-avatar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.mobility-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #e0e8f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #0b2343;
+    flex-shrink: 0;
+    text-transform: uppercase;
+}
+
+.mobility-avatar-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.mobility-avatar-email {
+    font-size: 11px;
+    color: #94a3b8;
+    margin-top: 1px;
+}
+
+/* ==============================
+   INFO FIELD
+============================== */
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-bottom: 12px;
+}
+
+.info:last-child {
+    margin-bottom: 0;
+}
+
+.info label {
+    font-size: 10.5px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.info span {
+    font-size: 13px;
+    font-weight: 500;
+    color: #0f172a;
+}
+
+/* ==============================
+   FOOTER (STATUS ROW)
+============================== */
+.mobility-footer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 16px 22px;
+    gap: 12px;
+    background: #fafbfc;
+}
+
+.status-box {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.status-box label {
+    font-size: 10.5px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.status-box span {
+    font-size: 13px;
+    font-weight: 500;
+    color: #0f172a;
+}
+
+/* ==============================
+   STATUS PILLS
+============================== */
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .03em;
+    width: fit-content;
+}
+
+.status::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.status-pending      { background: #fef9ee; color: #92400e; }
+.status-pending::before { background: #f59e0b; }
+
+.status-approved     { background: #ecfdf5; color: #065f46; }
+.status-approved::before { background: #10b981; }
+
+.status-rejected     { background: #fef2f2; color: #991b1b; }
+.status-rejected::before { background: #ef4444; }
+
+.status-complete     { background: #ecfdf5; color: #065f46; }
+.status-complete::before { background: #10b981; }
+
+.status-incomplete   { background: #fef2f2; color: #991b1b; }
+.status-incomplete::before { background: #ef4444; }
+
+.status-muted {
+    font-size: 13px;
+    font-weight: 500;
+    color: #94a3b8;
+}
+
+/* ==============================
+   EMPTY STATE
+============================== */
+.empty-card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #e2e8f2;
+    padding: 52px;
+    text-align: center;
+}
+
+.empty-card i {
+    font-size: 32px;
+    color: #cbd5e1;
+    margin-bottom: 12px;
+}
+
+.empty-card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 6px;
+}
+
+.empty-card p {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+/* ==============================
+   RESPONSIVE
+============================== */
+@media (max-width: 768px) {
+    .mobility-wrapper { padding: 16px; }
+    .mobility-top { grid-template-columns: 1fr; }
+    .mobility-section { border-right: none; border-bottom: 1px solid #f0f3f9; }
+    .mobility-section:last-child { border-bottom: none; }
+    .mobility-footer { grid-template-columns: repeat(2, 1fr); }
+}

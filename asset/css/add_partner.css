@@ -1,0 +1,333 @@
+/* =====================
+   GOOGLE FONT
+===================== */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap');
+
+/* =====================
+   RESET
+===================== */
+*,
+*::before,
+*::after{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* =====================
+   ROOT
+===================== */
+:root{
+    --primary:#0b2343;
+    --primary-light:#124b94;
+    --primary-hover:#1d6de0;
+
+    --success:#16a34a;
+    --danger:#dc2626;
+    --warning:#f59e0b;
+
+    --text:#0f172a;
+    --muted:#64748b;
+
+    --border:#e2e8f0;
+    --bg:#f4f7fb;
+    --white:#ffffff;
+}
+
+/* =====================
+   BODY
+===================== */
+body{
+    font-family:'Oswald',sans-serif;
+    background:linear-gradient(
+        180deg,
+        #f8fbff,
+        #eef4fb
+    );
+    min-height:100vh;
+    color:var(--text);
+}
+
+/* =====================
+   CONTENT
+===================== */
+.content{
+    padding:28px;
+    max-width:1100px;
+    margin:auto;
+}
+
+/* =====================
+   PAGE HEADER
+===================== */
+.page-header{
+    margin-bottom:24px;
+}
+
+.page-header h2{
+    font-size:28px;
+    font-weight:700;
+    color:var(--primary);
+    margin-bottom:4px;
+}
+
+.page-header p{
+    font-size:13px;
+    color:var(--muted);
+}
+
+/* =====================
+   CARD
+===================== */
+.form-card{
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    position:relative;
+    box-shadow:
+        0 15px 35px rgba(15,23,42,.08),
+        0 4px 12px rgba(15,23,42,.04);
+}
+
+.form-card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:6px;
+    background:linear-gradient(
+        90deg,
+        #0b2343,
+        #124b94,
+        #1d6de0
+    );
+}
+
+/* =====================
+   ERROR ALERT
+===================== */
+.alert-error{
+    margin:24px;
+    padding:14px 18px;
+    border-radius:12px;
+    background:#fef2f2;
+    border:1px solid #fecaca;
+    color:#991b1b;
+    font-size:13px;
+}
+
+.alert-error div:not(:last-child){
+    margin-bottom:5px;
+}
+
+/* =====================
+   FORM
+===================== */
+form{
+    padding:28px;
+}
+
+/* =====================
+   SECTION TITLE
+===================== */
+.section-title{
+    font-size:13px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--primary);
+    margin-bottom:18px;
+    padding-bottom:10px;
+    border-bottom:2px solid #eff6ff;
+}
+
+/* =====================
+   GRID
+===================== */
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+/* =====================
+   FIELD
+===================== */
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group label{
+    font-size:12px;
+    font-weight:600;
+    color:#475569;
+    margin-bottom:8px;
+    letter-spacing:.03em;
+}
+
+/* =====================
+   INPUTS
+===================== */
+.form-group input,
+.form-group select{
+    width:100%;
+    height:48px;
+    padding:0 14px;
+    border:1px solid #dbe4f0;
+    border-radius:12px;
+    background:#fff;
+    font-size:14px;
+    font-family:'Oswald',sans-serif;
+    color:#0f172a;
+    outline:none;
+    transition:.25s ease;
+}
+
+.form-group input:hover,
+.form-group select:hover{
+    border-color:#93c5fd;
+}
+
+.form-group input:focus,
+.form-group select:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 4px rgba(37,99,235,.12);
+}
+
+.form-group input::placeholder{
+    color:#94a3b8;
+}
+
+/* =====================
+   SELECT
+===================== */
+.form-group select{
+    cursor:pointer;
+    appearance:none;
+    -webkit-appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%2364748b' stroke-width='1.7' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 15px center;
+    padding-right:40px;
+}
+
+/* =====================
+   ACTIONS
+===================== */
+.form-actions{
+    margin-top:30px;
+    padding-top:20px;
+    border-top:1px solid #e2e8f0;
+
+    display:flex;
+    justify-content:flex-end;
+    gap:12px;
+}
+
+/* =====================
+   BUTTONS
+===================== */
+.btn-cancel{
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:12px 20px;
+    border-radius:12px;
+
+    background:#fff;
+    border:1px solid #dbe4f0;
+
+    color:#475569;
+    font-size:14px;
+    transition:.2s;
+}
+
+.btn-cancel:hover{
+    background:#f8fafc;
+    border-color:#cbd5e1;
+}
+
+.btn-submit{
+    border:none;
+    cursor:pointer;
+
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    padding:12px 22px;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+        135deg,
+        #0b2343,
+        #124b94
+    );
+
+    color:#fff;
+    font-family:'Oswald',sans-serif;
+    font-size:14px;
+    transition:.25s ease;
+}
+
+.btn-submit:hover{
+    background:linear-gradient(
+        135deg,
+        #12386d,
+        #1d6de0
+    );
+    transform:translateY(-2px);
+    box-shadow:0 10px 20px rgba(37,99,235,.25);
+}
+
+.btn-submit i{
+    font-size:14px;
+}
+
+/* =====================
+   INPUT ANIMATION
+===================== */
+.form-group input,
+.form-group select{
+    transition:
+        border-color .2s,
+        box-shadow .2s,
+        transform .15s;
+}
+
+.form-group input:focus,
+.form-group select:focus{
+    transform:translateY(-1px);
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+@media(max-width:768px){
+
+    .content{
+        padding:18px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-actions{
+        flex-direction:column-reverse;
+    }
+
+    .btn-submit,
+    .btn-cancel{
+        width:100%;
+    }
+
+    .page-header h2{
+        font-size:24px;
+    }
+}

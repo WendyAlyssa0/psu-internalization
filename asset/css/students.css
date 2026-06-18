@@ -1,0 +1,345 @@
+/* =========================
+   RESET
+========================= */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    color: #1a1a1a;
+    background: #f4f6f8;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+.content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* =========================
+   PAGE HEADER
+========================= */
+.page-header h2 {
+    font-size: 22px;
+    font-weight: 650;
+    color: #111;
+    letter-spacing: -0.2px;
+}
+
+.page-header p {
+    font-size: 14px;
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+/* =========================
+   STATS GRID (IMPROVED DEPTH)
+========================= */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 14px;
+}
+
+.stat-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+
+.stat-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background: linear-gradient(90deg, #0E1C36, #0ea5e9);
+}
+
+.stat-card h3 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0E1C36;
+}
+
+.stat-card p {
+    font-size: 12.5px;
+    color: #6b7280;
+}
+
+/* =========================
+   SEARCH TOOLBAR
+========================= */
+.toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.search-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 0 12px;
+    height: 40px;
+    width: 100%;
+    max-width: 380px;
+    transition: all 0.2s ease;
+}
+
+.search-wrap:focus-within {
+    border-color: #0E1C36;
+    box-shadow: 0 0 0 3px rgba(14,28,54,0.08);
+}
+
+.search-wrap .fa-search {
+    color: #9ca3af;
+    font-size: 13px;
+}
+
+.search-wrap input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 14px;
+    color: #111;
+}
+
+/* =========================
+   TABLE CARD (CLEANER UI)
+========================= */
+.table-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+
+/* =========================
+   TABLE
+========================= */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+thead {
+    background: #f9fafb;
+}
+
+thead th {
+    padding: 12px 14px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+tbody tr {
+    border-bottom: 1px solid #f1f5f9;
+    transition: 0.15s ease;
+}
+
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+tbody td {
+    padding: 12px 14px;
+    color: #111827;
+}
+
+/* =========================
+   BADGES (MORE BALANCED)
+========================= */
+.status-badge,
+.doc-badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+/* Status */
+.status-approved {
+    background: #e7f7ec;
+    color: #166534;
+}
+
+.status-rejected {
+    background: #fde8e8;
+    color: #b91c1c;
+}
+
+.status-pending {
+    background: #fff4db;
+    color: #92400e;
+}
+
+.status-evaluation {
+    background: #e0f2fe;
+    color: #075985;
+}
+
+/* =========================
+   ICON ACTION BUTTONS (MODERNIZED)
+========================= */
+.actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+/* base button */
+.action-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.18s ease;
+}
+
+/* icon */
+.action-btn .material-symbols-outlined {
+    font-size: 18px;
+}
+
+/* hover lift */
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+/* VIEW */
+.view-btn {
+    color: #0ea5e9;
+}
+.view-btn:hover {
+    background: #e0f2fe;
+}
+
+/* APPROVE */
+.approve-btn {
+    color: #16a34a;
+}
+.approve-btn:hover {
+    background: #dcfce7;
+}
+
+/* REJECT */
+.reject-btn {
+    color: #b3261e;
+}
+.reject-btn:hover {
+    background: #fee2e2;
+}
+
+/* DELETE */
+.delete-btn {
+    color: #334155;
+}
+.delete-btn:hover {
+    background: #e2e8f0;
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+.empty-row td {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    color: #9ca3af;
+}
+
+/* =========================
+   PAGINATION
+========================= */
+.pagination {
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #6b7280;
+    background: #fafafa;
+    border-top: 1px solid #f1f5f9;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+
+    .content {
+        padding: 1rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    table {
+        font-size: 13px;
+    }
+
+    thead th,
+    tbody td {
+        padding: 10px 10px;
+    }
+}
+
+/* =========================
+   MOBILITY BADGE
+========================= */
+.mobility-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.mobility-inbound {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.mobility-outbound {
+    background: #f5f3ff;
+    color: #7c3aed;
+}

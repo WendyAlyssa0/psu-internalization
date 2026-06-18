@@ -1,0 +1,212 @@
+
+/* =========================
+   RESET
+========================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Oswald', sans-serif;
+    background:linear-gradient(180deg,#f4f7ff,#eef3ff);
+    color:#0f172a;
+}
+
+/* =========================
+   CONTENT WRAPPER
+========================= */
+.content{
+    padding:28px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+
+.page-header h2{
+    font-size:24px;
+    font-weight:800;
+    color:#0b2343;
+}
+
+.page-header p{
+    font-size:12.5px;
+    color:#64748b;
+    margin-top:4px;
+}
+
+/* =========================
+   SECTION TITLE (WORKFLOW LABELS)
+========================= */
+.section-title{
+    font-size:13px;
+    font-weight:700;
+    color:#0b2343;
+    margin:6px 0;
+    letter-spacing:.3px;
+}
+
+/* =========================
+   TABLE CARD (SAME STYLE)
+========================= */
+.table-card{
+    background:#fff;
+    border-radius:14px;
+    overflow:hidden;
+    border:1px solid #eef2f7;
+    box-shadow:0 8px 22px rgba(15,23,42,.05);
+}
+
+/* =========================
+   TABLE
+========================= */
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:900px;
+}
+
+thead tr{
+    background:linear-gradient(135deg,#0b2343,#0f2f5e);
+}
+
+thead th{
+    padding:13px;
+    font-size:11px;
+    color:#fff;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    text-align:left;
+}
+
+tbody tr{
+    border-bottom:1px solid #eef2f7;
+    transition:.15s ease;
+}
+
+tbody tr:hover{
+    background:#f6f9ff;
+}
+
+tbody td{
+    padding:12px;
+    font-size:13px;
+    color:#334155;
+}
+
+/* =========================
+   STATUS BADGES (SHARED SYSTEM)
+========================= */
+.status-badge{
+    display:inline-block;
+    padding:4px 10px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:700;
+}
+
+.status-pending{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.status-evaluation{
+    background:#dbeafe;
+    color:#1d4ed8;
+}
+
+.status-approved{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.status-rejected{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+.actions{
+    display:flex;
+    gap:6px;
+    align-items:center;
+}
+
+/* base icon button */
+.action-btn{
+    width:32px;
+    height:32px;
+    border-radius:8px;
+    border:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:14px;
+    transition:.15s ease;
+    background:#f1f5f9;
+}
+
+/* hover lift */
+.action-btn:hover{
+    transform:translateY(-2px);
+}
+
+/* evaluate */
+.evaluate-btn{
+    color:#0284c7;
+}
+.evaluate-btn:hover{
+    background:#e0f2fe;
+    color:#0369a1;
+}
+
+/* approve */
+.approve-btn{
+    color:#16a34a;
+}
+.approve-btn:hover{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+/* reject */
+.reject-btn{
+    color:#dc2626;
+}
+.reject-btn:hover{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+.empty-msg{
+    text-align:center;
+    padding:30px;
+    color:#94a3b8;
+    font-size:13px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media(max-width:768px){
+
+    .content{
+        padding:14px;
+    }
+
+    table{
+        min-width:850px;
+    }
+
+    .section-title{
+        font-size:12.5px;
+    }
+}
