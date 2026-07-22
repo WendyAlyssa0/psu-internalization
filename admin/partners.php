@@ -7,6 +7,23 @@ function h($value): string {
     return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
 }
 
+/**
+ * Build a display-friendly full name from first/MI/last parts.
+ * e.g. ("Juan", "D", "Santos") -> "Juan D. Santos"
+ */
+function formatContactName(?string $first, ?string $mi, ?string $last): string {
+    $first = trim((string)$first);
+    $mi    = trim((string)$mi);
+    $last  = trim((string)$last);
+
+    $parts = [];
+    if ($first !== '') $parts[] = $first;
+    if ($mi !== '')     $parts[] = strtoupper($mi) . '.';
+    if ($last !== '')   $parts[] = $last;
+
+    return $parts ? implode(' ', $parts) : 'N/A';
+}
+
 /* =========================
    OVPLIA DATASET
 ========================= */
@@ -63,7 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
    FETCH PARTNERS
 ========================= */
 $partners = $pdo->query("
-    SELECT id, institution_name, country, contact_person,
+    SELECT id, institution_name, country,
+           contact_first_name, contact_mi, contact_last_name,
            agreement_type, expiry_date, status
     FROM partners
     ORDER BY id DESC
@@ -108,10 +126,15 @@ $partners = $pdo->query("
             <tbody id="tableBody">
             <?php if (!empty($partners)): ?>
                 <?php foreach ($partners as $partner):
+                    $contactName = formatContactName(
+                        $partner['contact_first_name'] ?? '',
+                        $partner['contact_mi'] ?? '',
+                        $partner['contact_last_name'] ?? ''
+                    );
                     $searchData = strtolower(
                         $partner['institution_name'] . ' ' .
                         $partner['country'] . ' ' .
-                        $partner['contact_person']
+                        $contactName
                     );
                     $status = strtolower($partner['status'] ?? 'active');
                 ?>
@@ -119,7 +142,7 @@ $partners = $pdo->query("
                     <td>#<?= h($partner['id']) ?></td>
                     <td><?= h($partner['institution_name']) ?></td>
                     <td><?= h($partner['country']) ?></td>
-                    <td><?= h($partner['contact_person']) ?></td>
+                    <td><?= h($contactName) ?></td>
                     <td><?= h($partner['agreement_type'] ?: 'N/A') ?></td>
                     <td>
                         <?= !empty($partner['expiry_date'])
@@ -254,22 +277,29 @@ $partners = $pdo->query("
                     </div>
                 </div>
 
-                <!-- Contact Person + Email -->
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label">
-                            <i class="fa fa-user"></i> Contact Person
-                        </label>
-                        <input type="text" name="contact_person" class="form-input"
-                               placeholder="e.g. Dr. John Smith">
+                <!-- Contact Person: First Name / M.I. / Last Name -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fa fa-user"></i> Contact Person
+                    </label>
+                    <div class="form-row" style="grid-template-columns: 1fr 70px 1fr;">
+                        <input type="text" name="contact_first_name" class="form-input"
+                               placeholder="First name" required maxlength="100">
+                        <input type="text" name="contact_mi" class="form-input"
+                               placeholder="M.I." maxlength="1" pattern="[A-Za-z]"
+                               title="Single letter only" style="text-align:center;">
+                        <input type="text" name="contact_last_name" class="form-input"
+                               placeholder="Last name" required maxlength="100">
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">
-                            <i class="fa fa-envelope"></i> Contact Email
-                        </label>
-                        <input type="email" name="contact_email" class="form-input"
-                               placeholder="e.g. jsmith@univ.edu">
-                    </div>
+                </div>
+
+                <!-- Contact Email -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fa fa-envelope"></i> Contact Email
+                    </label>
+                    <input type="email" name="contact_email" class="form-input"
+                           placeholder="e.g. jsmith@univ.edu">
                 </div>
 
                 <!-- Expiry Date -->
@@ -381,22 +411,29 @@ $partners = $pdo->query("
                     </div>
                 </div>
 
-                <!-- Contact Person + Email -->
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label">
-                            <i class="fa fa-user"></i> Contact Person
-                        </label>
-                        <input type="text" name="contact_person" id="editContact"
-                               class="form-input" placeholder="e.g. Dr. John Smith">
+                <!-- Contact Person: First Name / M.I. / Last Name -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fa fa-user"></i> Contact Person
+                    </label>
+                    <div class="form-row" style="grid-template-columns: 1fr 70px 1fr;">
+                        <input type="text" name="contact_first_name" id="editContactFirst"
+                               class="form-input" placeholder="First name" required maxlength="100">
+                        <input type="text" name="contact_mi" id="editContactMi"
+                               class="form-input" placeholder="M.I." maxlength="1"
+                               pattern="[A-Za-z]" title="Single letter only" style="text-align:center;">
+                        <input type="text" name="contact_last_name" id="editContactLast"
+                               class="form-input" placeholder="Last name" required maxlength="100">
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">
-                            <i class="fa fa-envelope"></i> Contact Email
-                        </label>
-                        <input type="email" name="contact_email" id="editEmail"
-                               class="form-input" placeholder="e.g. jsmith@univ.edu">
-                    </div>
+                </div>
+
+                <!-- Contact Email -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fa fa-envelope"></i> Contact Email
+                    </label>
+                    <input type="email" name="contact_email" id="editEmail"
+                           class="form-input" placeholder="e.g. jsmith@univ.edu">
                 </div>
 
                 <!-- Expiry Date -->
@@ -561,12 +598,14 @@ function openEditModal(id) {
             }
 
             document.getElementById('editId').value          = data.id;
-            document.getElementById('editInstitution').value = data.institution_name || '';
-            document.getElementById('editCountry').value     = data.country          || '';
-            document.getElementById('editContact').value     = data.contact_person   || '';
-            document.getElementById('editEmail').value       = data.contact_email    || '';
-            document.getElementById('editExpiry').value      = data.expiry_date      || '';
-            document.getElementById('editNotes').value       = data.notes            || '';
+            document.getElementById('editInstitution').value = data.institution_name  || '';
+            document.getElementById('editCountry').value     = data.country           || '';
+            document.getElementById('editContactFirst').value = data.contact_first_name || '';
+            document.getElementById('editContactMi').value    = data.contact_mi          || '';
+            document.getElementById('editContactLast').value  = data.contact_last_name   || '';
+            document.getElementById('editEmail').value       = data.contact_email     || '';
+            document.getElementById('editExpiry').value      = data.expiry_date       || '';
+            document.getElementById('editNotes').value       = data.notes             || '';
 
             setSelectValue('editAgreement', data.agreement_type || '');
             setSelectValue('editStatus',    (data.status || 'active').toLowerCase());

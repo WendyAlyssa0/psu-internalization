@@ -235,6 +235,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_create'])) {
                         <select type="text" name="program">
                                 <option value ="BSIT">Bachelor of Science in information Technology</option>
                                 <option value ="BSBA">Bachelor of Science in Business </option>
+                                <option value ="BSED">Bachelor of Science in Education</option>
                     
                         </select>
                     </div>

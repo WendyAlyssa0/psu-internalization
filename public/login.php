@@ -7,56 +7,135 @@ $username = $_COOKIE['remember_email'] ?? '';
 $remember = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
     $remember = isset($_POST['remember']);
 
+
     if ($username === '' || $password === '') {
+
         $error = 'All fields are required.';
+
     } elseif (!filter_var($username, FILTER_VALIDATE_EMAIL)) {
+
         $error = 'Enter a valid email address.';
+
     } else {
-        $pdo  = db();
+
+        $pdo = db();
+
         $stmt = $pdo->prepare("
-            SELECT id, first_name, email, user_role, password_hash
+            SELECT 
+                id,
+                first_name,
+                email,
+                user_role,
+                password_hash
             FROM users
             WHERE email = :email
             LIMIT 1
         ");
-        $stmt->execute([':email' => $username]);
+
+        $stmt->execute([
+            ':email' => $username
+        ]);
+
+
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
+
         if ($user && password_verify($password, $user['password_hash'])) {
+
+
             session_regenerate_id(true);
+
+
             $_SESSION['user_id']    = $user['id'];
             $_SESSION['username']   = $user['email'];
             $_SESSION['first_name'] = $user['first_name'];
             $_SESSION['user_role']  = $user['user_role'];
 
+
+
             if ($remember) {
-                setcookie('remember_email', $username, time() + 60 * 60 * 24 * 30, '/', '', true, true);
+
+                setcookie(
+                    'remember_email',
+                    $username,
+                    time() + (60 * 60 * 24 * 30),
+                    '/',
+                    '',
+                    true,
+                    true
+                );
+
             } else {
-                setcookie('remember_email', '', time() - 3600, '/');
+
+                setcookie(
+                    'remember_email',
+                    '',
+                    time() - 3600,
+                    '/'
+                );
+
             }
 
-            $role = strtolower(trim($user['user_role']));
 
-            switch ($role) {
-                case 'admin':
-                case 'ad':
-                case 'super admin':
-                case 'sa':
-                    header('Location: ../admin/dashboard.php');
-                    exit();
 
-                default:
-                    $error = 'Your account does not have access to this portal.';
+            $role = strtolower(trim($user['user_role'] ?? ''));
+
+                // If role is empty or NULL, default to applicant
+                if ($role === '') {
+                    $role = 'applicant';
+                }
+
+            // ADMIN LOGIN
+            if (
+                $role === 'admin' ||
+                $role === 'ad' ||
+                $role === 'super admin' ||
+                $role === 'sa'
+            ) {
+
+                header("Location: ../admin/dashboard.php");
+                exit();
+
             }
+
+
+
+            // APPLICANT / USER LOGIN
+            elseif (
+                $role === 'user' ||
+                $role === 'applicant'
+            ) {
+
+                header("Location: ../user/home.php");
+                exit();
+
+            }
+
+
+
+            else {
+
+                $error = "Invalid account role.";
+
+            }
+
+
+
         } else {
-            $error = 'Invalid email or password.';
+
+            $error = "Invalid email or password.";
+
         }
+
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -118,9 +197,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="field-wrap">
                     <i class="fa fa-envelope"></i>
                     <input type="email" name="username"
-                           placeholder="AD@psuizn.com"
-                           value="<?= htmlspecialchars($username) ?>"
-                           required autocomplete="email" autofocus>
+                        placeholder="AD@psuizn.com"
+                        value="<?= htmlspecialchars($username) ?>"
+                        required autocomplete="email" autofocus>
                 </div>
             </div>
 
@@ -129,8 +208,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="field-wrap">
                     <i class="fa fa-lock"></i>
                     <input type="password" name="password"
-                           placeholder="Enter your password"
-                           required autocomplete="current-password">
+                        placeholder="Enter your password"
+                        required autocomplete="current-password">
                 </div>
             </div>
 

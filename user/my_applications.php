@@ -24,17 +24,24 @@ $stmt = $pdo->prepare("
         a.id AS application_id,
         a.status AS app_status,
         a.created_at AS date_applied,
-        a.reason,
+
         p.program_name,
-        p.partner_institution,
-        p.country,
         p.start_date,
         p.end_date,
-        p.description
+
+        pr.institution_name AS partner_institution,
+        pr.country
+
     FROM applications a
+
     LEFT JOIN programs p
         ON p.id = a.program_id
+
+    LEFT JOIN partners pr
+        ON pr.id = p.partner_id
+
     WHERE a.applicant_id = ?
+
     ORDER BY a.created_at DESC
 ");
 
@@ -273,13 +280,6 @@ $applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <p class="modal-field-text" id="modalDescription"></p>
             </div>
 
-            <div class="modal-field modal-field-full">
-                <span class="modal-field-label">
-                    <i class="fa-solid fa-pen-to-square"></i> Your Statement of Purpose
-                </span>
-                <p class="modal-field-text" id="modalReason"></p>
-            </div>
-
             <div class="modal-status-row">
                 <span class="modal-field-label">
                     <i class="fa-solid fa-circle-info"></i> Application Status
@@ -323,9 +323,7 @@ function openModal(app) {
     document.getElementById('modalStart').textContent        = formatDate(app.start_date);
     document.getElementById('modalEnd').textContent          = formatDate(app.end_date);
     document.getElementById('modalDateApplied').textContent  = formatDate(app.date_applied);
-    document.getElementById('modalDescription').textContent  = app.description || '—';
-    document.getElementById('modalReason').textContent       = app.reason || '—';
-
+    document.getElementById('modalDescription').textContent ='No description available.';
     const status =
         app.app_status.charAt(0).toUpperCase() +
         app.app_status.slice(1).toLowerCase();    const statusEl   = document.getElementById('modalStatus');

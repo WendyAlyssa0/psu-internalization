@@ -8,7 +8,16 @@ $pdo = db();
 $id = (int)($_GET['id'] ?? 0);
 
 $stmt = $pdo->prepare("
-    SELECT *
+    SELECT
+        id,
+        program_name,
+        program_type,
+        partner_id,
+        country_id,
+        status,
+        start_date,
+        _end_date,
+        description
     FROM programs
     WHERE id = ?
 ");
@@ -19,9 +28,11 @@ $program = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$program) {
     echo json_encode([
-        'error' => 'Program not found'
+        'success' => false,
+        'message' => 'Program not found'
     ]);
     exit;
 }
 
 echo json_encode($program);
+exit;

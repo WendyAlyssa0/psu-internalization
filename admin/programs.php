@@ -1,27 +1,72 @@
 <?php
+
 require_once __DIR__ . '/../config/db.php';
 
 $pdo = db();
 
-function h($value): string {
-    return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
+
+   //SAFE HELPER FUNCTION
+
+if (!function_exists('h')) {
+
+    function h($value): string {
+        return htmlspecialchars(
+            (string)$value,
+            ENT_QUOTES,
+            'UTF-8'
+        );
+    }
 }
+   //DELETE PROGRAM
 
-/* DELETE */
 if (isset($_GET['delete'])) {
+
     $id = (int)$_GET['delete'];
+    $stmt = $pdo->prepare("
+        DELETE FROM programs
+        WHERE id = ?
+    ");
 
-    $stmt = $pdo->prepare("DELETE FROM programs WHERE id = ?");
     $stmt->execute([$id]);
-
     header("Location: programs.php");
     exit();
 }
 
-/* FETCH */
-$programs = $pdo->query("
-    SELECT * FROM programs ORDER BY id DESC
-")->fetchAll(PDO::FETCH_ASSOC);
+   //LOAD PARTNERS
+$partnerStmt = $pdo->query("
+    SELECT id, institution_name
+    FROM partners
+    WHERE status = 'Active'
+    ORDER BY institution_name
+");
+$partners = $partnerStmt->fetchAll(PDO::FETCH_ASSOC);
+
+  // LOAD COUNTRIES
+$countryStmt = $pdo->query("
+    SELECT id, country_name
+    FROM countries
+    WHERE status = 'Active'
+    ORDER BY country_name
+");
+
+$countries = $countryStmt->fetchAll(PDO::FETCH_ASSOC);
+
+   //FETCH PROGRAMS
+$stmt = $pdo->query("
+    SELECT
+        p.*,
+        c.country_name,
+        pr.institution_name
+    FROM programs p
+    LEFT JOIN countries c
+        ON p.country_id = c.id
+    LEFT JOIN partners pr
+        ON p.partner_id = pr.id
+    ORDER BY p.id DESC
+");
+
+$programs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <link rel="stylesheet" href="../asset/css/programs.css">
@@ -66,13 +111,13 @@ $programs = $pdo->query("
 
             <tbody id="tableBody">
             <?php foreach ($programs as $p): ?>
-                <tr data-name="<?= strtolower($p['program_name']) ?>">
+                <tr data-name="<?= strtolower(h($p['program_name'])) ?>">
 
                     <td>#<?= h($p['id']) ?></td>
                     <td><?= h($p['program_name']) ?></td>
                     <td><?= h($p['program_type']) ?></td>
-                    <td><?= h($p['country']) ?></td>
-                    <td><?= h($p['partner_institution']) ?></td>
+                    <td><?= h($p['country_name']) ?></td>
+                    <td><?= h($p['institution_name']) ?></td>
 
                     <td>
                         <span class="status-badge <?= strtolower($p['status']) ?>">
@@ -83,10 +128,9 @@ $programs = $pdo->query("
                     <td>
                         <?= date('M d, Y', strtotime($p['start_date'])) ?>
                         -
-                        <?= date('M d, Y', strtotime($p['end_date'])) ?>
-                    </td>
-
+                        <?= date('M d, Y', strtotime($p['_end_date'])) ?> 
                     <td>
+                <td>
                         <button type="button"
                                 class="action-btn edit-btn"
                                 onclick="openEditProgramModal(<?= (int)$p['id'] ?>)">
@@ -158,17 +202,23 @@ $programs = $pdo->query("
                     </div>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Partner Institution</label>
-                        <input type="text" name="partner_institution" id="edit_partner" class="form-input" required>
-                    </div>
+                <select name="partner_id" class="form-input" required>
+                    <option value="">Select Partner</option>
+                    <?php foreach($partners as $partner): ?>
+                        <option value="<?= $partner['id'] ?>">
+                            <?= h($partner['institution_name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
 
-                    <div class="form-group">
-                        <label>Country</label>
-                        <input type="text" name="country" id="edit_country" class="form-input" required>
-                    </div>
-                </div>
+                <select name="country_id" class="form-input" required>
+                    <option value="">Select Country</option>
+                    <?php foreach($countries as $country): ?>
+                        <option value="<?= $country['id'] ?>">
+                            <?= h($country['country_name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
 
                 <div class="form-row">
                     <div class="form-group">
@@ -262,28 +312,41 @@ $programs = $pdo->query("
                 </div>
 
                 <!-- Partner + Country -->
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label">
-                            <i class="fa fa-building"></i> Partner Institution
-                        </label>
-                        <input type="text"
-                               name="partner_institution"
-                               class="form-input"
-                               placeholder="e.g. University of Tokyo"
-                               required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">
-                            <i class="fa fa-globe"></i> Country
-                        </label>
-                        <input type="text"
-                               name="country"
-                               class="form-input"
-                               placeholder="e.g. Japan"
-                               required>
-                    </div>
-                </div>
+<div class="form-row">
+
+    <div class="form-group">
+        <label class="form-label">
+            <i class="fa fa-building"></i> Partner Institution
+        </label>
+
+        <select name="partner_id" class="form-input" required>
+            <option value="">Select Partner</option>
+
+            <?php foreach($partners as $partner): ?>
+                <option value="<?= $partner['id'] ?>">
+                    <?= h($partner['institution_name']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">
+            <i class="fa fa-globe"></i> Country
+        </label>
+
+        <select name="country_id" class="form-input" required>
+            <option value="">Select Country</option>
+
+            <?php foreach($countries as $country): ?>
+                <option value="<?= $country['id'] ?>">
+                    <?= h($country['country_name']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+
+</div>
 
                 <!-- Start + End Date -->
                 <div class="form-row">
@@ -375,10 +438,10 @@ function openEditProgramModal(id) {
             document.getElementById('edit_program_name').value = data.program_name;
             document.getElementById('edit_program_type').value = data.program_type;
             document.getElementById('edit_status').value = data.status;
-            document.getElementById('edit_partner').value = data.partner_institution;
-            document.getElementById('edit_country').value = data.country;
+            document.getElementById('edit_partner_id').value = data.partner_id;
+            document.getElementById('edit_country_id').value = data.country_id;
             document.getElementById('edit_start').value = data.start_date;
-            document.getElementById('edit_end').value = data.end_date;
+            document.getElementById('edit_end').value = data._end_date;
             document.getElementById('edit_description').value = data.description;
         })
         .catch(() => {
@@ -428,7 +491,7 @@ document.getElementById('programForm').addEventListener('submit', function (e) {
     btn.disabled    = true;
     btn.textContent = 'Saving...';
 
-    fetch('add_program.php', {
+    fetch('add_program_modal.php', {
         method: 'POST',
         body:   new FormData(this)
     })

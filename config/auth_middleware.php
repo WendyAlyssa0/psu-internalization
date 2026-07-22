@@ -7,14 +7,16 @@ if (session_status() === PHP_SESSION_NONE) {
 /**
  * Get clean role
  */
-function getRole(): string {
+function getRole(): string
+{
     return strtolower(trim($_SESSION['user_role'] ?? ''));
 }
 
 /**
  * Require login
  */
-function requireLogin(): void {
+function requireLogin(): void
+{
     if (!isset($_SESSION['user_id'])) {
         header('Location: /public/login.php');
         exit();
@@ -24,7 +26,8 @@ function requireLogin(): void {
 /**
  * Require specific roles
  */
-function requireRole(array $roles, string $redirect = '/public/login.php'): void {
+function requireRole(array $roles, string $redirect = '/public/login.php'): void
+{
     requireLogin();
 
     $role = getRole();
@@ -40,13 +43,15 @@ function requireRole(array $roles, string $redirect = '/public/login.php'): void
 /**
  * Shortcut: Admin only
  */
-function requireAdmin(): void {
+function requireAdmin(): void
+{
     requireRole(['admin', 'sa'], '/user/home.php');
 }
 
 /**
  * Shortcut: Applicant only
  */
-function requireApplicant(): void {
+function requireApplicant(): void
+{
     requireRole(['applicant', 'ap'], '/admin/dashboard.php');
 }

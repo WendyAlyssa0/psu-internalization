@@ -92,7 +92,7 @@ SELECT
 
     p.program_name AS program,
     p.program_type AS department,
-    p.country,
+    p.country_id AS country,
     p.status,
 
     CONCAT(u.first_name,' ',u.last_name) AS applicant_name,

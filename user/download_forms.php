@@ -1,7 +1,28 @@
 <?php
+require_once __DIR__ . '/../config/db.php';
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+$pdo = db();
+
+function e($value)
+{
+    return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
+}
+
+$stmt = $pdo->query("
+    SELECT
+        p.program_name,
+        pr.requirement_name
+    FROM program_requirements pr
+    INNER JOIN programs p
+        ON p.id = pr.program_id
+    ORDER BY p.program_name, pr.requirement_name
+");
+
+$requirements = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <link rel="stylesheet" href="../asset/css/download_form.css">
@@ -10,48 +31,43 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <div class="page-header">
         <div>
-            <h2>Download Forms</h2>
-            <p>Download required application and mobility forms.</p>
+            <h2>Program Requirements</h2>
+            <p>Requirements assigned by the administrator for each mobility program.</p>
         </div>
     </div>
 
     <div class="form-list">
 
-        <div class="form-item">
-            <div>
-                <h3>Application Form</h3>
-                <p>Main mobility application form (PDF)</p>
+        <?php if (empty($requirements)): ?>
+
+            <div class="form-item">
+                <div>
+                    <h3>No Requirements Found</h3>
+                    <p>No program requirements have been configured yet.</p>
+                </div>
             </div>
 
-            <a href="../asset/forms/application_form.pdf" download class="btn">
-                <i class="fa-solid fa-download"></i>
-                Download
-            </a>
-        </div>
+        <?php else: ?>
 
-        <div class="form-item">
-            <div>
-                <h3>Recommendation Letter</h3>
-                <p>Required faculty recommendation template</p>
-            </div>
+            <?php foreach ($requirements as $req): ?>
 
-            <a href="../asset/forms/recommendation_letter.pdf" download class="btn">
-                <i class="fa-solid fa-download"></i>
-                Download
-            </a>
-        </div>
+                <div class="form-item">
 
-        <div class="form-item">
-            <div>
-                <h3>Medical Certificate</h3>
-                <p>Health clearance form</p>
-            </div>
+                    <div>
+                        <h3><?= e($req['requirement_name']) ?></h3>
+                        <p><?= e($req['program_name']) ?></p>
+                    </div>
 
-            <a href="../asset/forms/medical_certificate.pdf" download class="btn">
-                <i class="fa-solid fa-download"></i>
-                Download
-            </a>
-        </div>
+                    <button class="btn" disabled>
+                        <i class="fa-solid fa-circle-check"></i>
+                        Required
+                    </button>
+
+                </div>
+
+            <?php endforeach; ?>
+
+        <?php endif; ?>
 
     </div>
 

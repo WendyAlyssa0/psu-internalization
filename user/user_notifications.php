@@ -23,12 +23,11 @@ $stmt = $pdo->prepare("
         a.id,
         a.status,
         a.program,
-        a.created_at,
-        a.updated_at
+        a.created_at
     FROM applications a
     WHERE a.applicant_id = ?
       AND a.status IN ('approved', 'rejected')
-    ORDER BY a.updated_at DESC
+    ORDER BY a.created_at DESC
     LIMIT 20
 ");
 
@@ -134,8 +133,8 @@ $typeMap = [
                             "Your application status has been updated."
                     };
 
-                    $date = !empty($n['updated_at'])
-                        ? new DateTime($n['updated_at'])
+                    $date = !empty($n['created_at'])
+                        ? new DateTime($n['created_at'])
                         : new DateTime();
                     ?>
 
