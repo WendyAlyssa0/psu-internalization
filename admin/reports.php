@@ -35,131 +35,136 @@ function countRows(PDO $pdo, string $table, ?string $where = null): int {
 }
 
 
-$totalApplicants = countRows($pdo, 'applications');
-$submitted = countRows($pdo, 'applications', "status = 'submitted'");
-$underReview = countRows($pdo, 'applications', "status = 'under_review'");
-$approved = countRows($pdo, 'applications', "status = 'approved'");
-$rejected = countRows($pdo, 'applications', "status = 'rejected'");
-$inbound = countRows($pdo, 'mobility_students', "mobility_type = 'inbound'");
-$outbound = countRows($pdo, 'mobility_students', "mobility_type = 'outbound'");
-$pending = countRows($pdo, 'applications', "status = 'submitted' OR status = 'under_review'");
-$travelRecords = countRows($pdo, 'travel_info');
-$activityLogs = countRows($pdo, 'activity_logs');
-$totalUsers = countRows($pdo, 'users');
+$totalApplicants = countRows(
+    $pdo,
+    'users',
+    "user_role = 'applicant'"
+);
 
+$totalPrograms = countRows(
+    $pdo,
+    'programs'
+);
+
+$activePrograms = countRows($pdo,'programs',"status='Active'");
+$upcomingPrograms = countRows($pdo,'programs',"status='Upcoming'");
+$completedPrograms = countRows($pdo,'programs',"status='Completed'");
+
+$pending = countRows(
+    $pdo,
+    'applications',
+    "status = 'pending'"
+);
+
+$approved = countRows(
+    $pdo,
+    'applications',
+    "status = 'approved'"
+);
+
+$rejected = countRows(
+    $pdo,
+    'applications',
+    "status = 'rejected'"
+);
+
+$totalUsers = countRows(
+    $pdo,
+    'users'
+);
+
+$approvalRate = ($approved + $rejected) > 0
+    ? round(($approved / ($approved + $rejected)) * 100)
+    : 0;
 ?>
 
 <div class="db-wrap">
 
     <p class="db-section-label">Applications</p>
 
-    <div class="stat-grid">
+<div class="stat-grid">
 
-        <div class="stat-card">
-            <div class="stat-label">
-                <i class="fa-solid fa-users"></i>
-                Total Applicants
-            </div>
-            <div class="stat-value">
-                <?= number_format($totalApplicants) ?>
-            </div>
-            <div class="stat-sub">
-                This academic year
-            </div>
+    <div class="stat-card">
+        <div class="stat-label">
+            <i class="fa-solid fa-users"></i>
+            Total Applicants
         </div>
-
-        <div class="stat-card">
-            <div class="stat-label">
-                <i class="fa-solid fa-arrow-down"></i>
-                Inbound
-            </div>
-            <div class="stat-value">
-                <?= number_format($inbound) ?>
-            </div>
-            <div class="stat-sub">
-                Students incoming
-            </div>
+        <div class="stat-value">
+            <?= number_format($totalApplicants) ?>
         </div>
-
-        <div class="stat-card">
-            <div class="stat-label">
-                <i class="fa-solid fa-arrow-up"></i>
-                Outbound
-            </div>
-            <div class="stat-value">
-                <?= number_format($outbound) ?>
-            </div>
-            <div class="stat-sub">
-                Students outgoing
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-label">
-                <i class="fa-solid fa-clock"></i>
-                Pending
-            </div>
-            <div class="stat-value pending">
-                <?= number_format($pending) ?>
-            </div>
-            <div class="stat-sub">
-                Awaiting review
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-label">
-                <i class="fa-solid fa-circle-check"></i>
-                Approved
-            </div>
-            <div class="stat-value approved">
-                <?= number_format($approved) ?>
-            </div>
-            <div class="stat-sub">
-                Confirmed placements
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-label">
-                <i class="fa-solid fa-plane"></i>
-                Travel Records
-            </div>
-            <div class="stat-value">
-                <?= number_format($travelRecords) ?>
-            </div>
-            <div class="stat-sub">
-                Itineraries filed
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-label">
-                <i class="fa-solid fa-file-lines"></i>
-                Activity Logs
-            </div>
-            <div class="stat-value">
-                <?= number_format($activityLogs) ?>
-            </div>
-            <div class="stat-sub">
-                System events
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-label">
-                <i class="fa-solid fa-users"></i>
-                Total Users
-            </div>
-            <div class="stat-value">
-                <?= number_format($totalUsers) ?>
-            </div>
-            <div class="stat-sub">
-                Registered accounts
-            </div>
-        </div>
-
     </div>
+
+    <div class="stat-card">
+        <div class="stat-label">
+            <i class="fa-solid fa-graduation-cap"></i>
+            Total Programs
+        </div>
+        <div class="stat-value">
+            <?= number_format($totalPrograms) ?>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-label">
+            <i class="fa-solid fa-book-open"></i>
+            Active Programs
+        </div>
+        <div class="stat-value">
+            <?= number_format($activePrograms) ?>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-label">
+            <i class="fa-solid fa-clock"></i>
+            Pending Applications
+        </div>
+        <div class="stat-value pending">
+            <?= number_format($pending) ?>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-label">
+            <i class="fa-solid fa-circle-check"></i>
+            Approved
+        </div>
+        <div class="stat-value approved">
+            <?= number_format($approved) ?>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-label">
+            <i class="fa-solid fa-circle-xmark"></i>
+            Rejected
+        </div>
+        <div class="stat-value rejected">
+            <?= number_format($rejected) ?>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-label">
+            <i class="fa-solid fa-user-shield"></i>
+            Total Users
+        </div>
+        <div class="stat-value">
+            <?= number_format($totalUsers) ?>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-label">
+            <i class="fa-solid fa-chart-line"></i>
+            Approval Rate
+        </div>
+        <div class="stat-value">
+            <?= $approvalRate ?>%
+        </div>
+    </div>
+
+</div>
 
     <div class="chart-row">
 
@@ -171,6 +176,11 @@ $totalUsers = countRows($pdo, 'users');
     <div class="chart-card">
         <h3>Application Status Breakdown</h3>
         <canvas id="doughnutChart"></canvas>
+    </div>
+
+    <div class="chart-card">
+        <h3>Programs by Status</h3>
+        <canvas id="programChart"></canvas>
     </div>
 
 </div>
@@ -217,6 +227,25 @@ new Chart(document.getElementById('lineChart'), {
             backgroundColor: 'rgba(37,99,235,.1)',
             fill: true,
             tension: .4
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
+    }
+});
+
+new Chart(document.getElementById('programChart'), {
+    type: 'bar',
+    data: {
+        labels: ['Active', 'Upcoming', 'Completed'],
+        datasets: [{
+            label: 'Programs',
+            data: [
+                <?= $activePrograms ?>,
+                <?= $upcomingPrograms ?>,
+                <?= $completedPrograms ?>
+            ]
         }]
     },
     options: {
