@@ -4,17 +4,17 @@
 /* extra refinement only for travel module */
 
 .status-evaluation {
-    background:#dbeafe;
-    color:#1d4ed8;
+  background: #dbeafe;
+  color: #1d4ed8;
 }
 
 /* make flight cell cleaner */
 td small {
-    color:#64748b;
-    font-size:11px;
+  color: #64748b;
+  font-size: 11px;
 }
 
 /* better spacing for long travel info */
 td {
-    vertical-align: top;
+  vertical-align: top;
 }

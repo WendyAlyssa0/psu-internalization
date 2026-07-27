@@ -3,214 +3,94 @@
 require_once __DIR__ . '/../config/auth_middleware.php';
 requireAdmin();
 
-$page = $_GET['page'] ?? 'home';
-
 /*
 |--------------------------------------------------------------------------
-| VALID PAGES
+| PAGE ROUTING
 |--------------------------------------------------------------------------
+| Each key is a valid ?page= value, mapped to the file that renders it.
+| Unknown or missing pages fall back to 'home'.
 */
-$validPages = [
-
+$pages = [
     // Dashboard
-    'home',
-
-    // Master Data
-    'countries',
-    'partners',
-    'agreement_types',
+    'home' => 'reports.php',
 
     // Program Management
-    'programs',
-    'requirements',
-    'forms',
+    'programs'        => 'programs.php',
+    'partners'        => 'partners.php',
+    'agreement_types' => 'agreement_types.php',
 
-    // Applications
-    'applications',
-    'documents',
+    // Location Management
+    'countries_addresses' => 'countries_addresses.php',
 
-    // Student Mobility
-    'student_management',
-    'travel_information',
-    'activity_monitoring',
+    // Application Management
+    'applications'          => 'applications.php',
+    'documents'             => 'documents.php',
+    'requirements'          => 'requirements.php',
+    'program_requirements' => 'program_requirements.php',
+
+    // Form Management
+    'forms' => 'forms.php',
+
+    // Mobility Management
+    'approved_students'  => 'approved_students.php',
+    'travel_information' => 'travel_information.php',
+    'activity_reports'   => 'activity_reports.php',
 
     // Communication
-    'notifications',
-    'messages',
+    'notifications'  => 'notifications.php',
+    'announcements'  => 'announcements.php',
 
     // Administration
-    'users',
-    'reports',
-    'audit_trail'
+    'users'       => 'users.php',
+    'reports'     => 'reports.php',
+    'audit_trail' => 'audit_trail.php',
 ];
 
-if (!in_array($page, $validPages, true)) {
+$page = $_GET['page'] ?? 'home';
+
+if (!array_key_exists($page, $pages)) {
     $page = 'home';
 }
 
 $firstName = $_SESSION['first_name'] ?? 'Administrator';
-?>
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PSU Internalization Management System</title>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../asset/css/dashboard.css">
+<link rel="stylesheet" href="../asset/css/report.css">
 
-    <title>PSU Internalization Management System</title>
-
-    <link rel="stylesheet" href="../asset/css/dashboard.css">
-    <link rel="stylesheet" href="../asset/css/report.css">
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
-
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
 </head>
 <body>
 
-<!-- ========================================
-     SIDEBAR
-======================================== -->
+<!-- SIDEBAR -->
 <?php require_once 'sidebar.php'; ?>
 
-<!-- ========================================
-     TOPBAR
-======================================== -->
+<!-- TOPBAR -->
 <div class="topbar">
+  <div class="topbar-left">
+    <span class="topbar-title">PSU Internalization</span>
+  </div>
 
-    <div class="topbar-left">
-        <span class="topbar-title">
-            PSU Internalization
-        </span>
-    </div>
-
-    <div class="user">
-
-        <span class="material-symbols-outlined">
-            account_circle
-        </span>
-
-        <span>
-            <?= htmlspecialchars($firstName, ENT_QUOTES, 'UTF-8') ?>
-        </span>
-
-    </div>
-
+  <div class="user">
+    <span class="material-symbols-outlined">account_circle</span>
+    <span><?= htmlspecialchars($firstName, ENT_QUOTES, 'UTF-8') ?></span>
+  </div>
 </div>
 
-<!-- ========================================
-     MAIN CONTENT
-======================================== -->
+<!-- MAIN CONTENT -->
 <div class="container">
-
-<?php
-
-switch ($page) {
-
-    /* ========================================
-       DASHBOARD
-    ======================================== */
-    case 'home':
-        require 'reports.php';
-        break;
-
-    /* ========================================
-       MASTER DATA
-    ======================================== */
-    case 'countries':
-        require 'countries.php';
-        break;
-
-    case 'partners':
-        require 'partners.php';
-        break;
-
-    case 'agreement_types':
-        require 'agreement_types.php';
-        break;
-
-    /* ========================================
-       PROGRAM MANAGEMENT
-    ======================================== */
-    case 'programs':
-        require 'programs.php';
-        break;
-
-    case 'requirements':
-        require 'requirements.php';
-        break;
-
-    case 'forms':
-        require 'forms.php';
-        break;
-
-    /* ========================================
-       APPLICATION MANAGEMENT
-    ======================================== */
-    case 'applications':
-        require 'applications.php';
-        break;
-
-    case 'documents':
-        require 'documents.php';
-        break;
-
-    /* ========================================
-       STUDENT MOBILITY
-    ======================================== */
-    case 'student_management':
-        require 'student_management.php';
-        break;
-
-    case 'travel_information':
-        require 'travel_information.php';
-        break;
-
-    case 'activity_monitoring':
-        require 'activity_monitoring.php';
-        break;
-
-    /* ========================================
-       COMMUNICATION
-    ======================================== */
-    case 'notifications':
-        require 'notifications.php';
-        break;
-
-    case 'messages':
-        require 'messages.php';
-        break;
-
-    /* ========================================
-       ADMINISTRATION
-    ======================================== */
-    case 'users':
-        require 'users.php';
-        break;
-
-    case 'audit_trail':
-        require 'audit_trail.php';
-        break;
-
-    /* ========================================
-       DEFAULT
-    ======================================== */
-    default:
-        require 'dashboard.php';
-        break;
-}
-
-?>
-
+  <?php require $pages[$page]; ?>
 </div>
 
-<!-- ========================================
-     JAVASCRIPT
-======================================== -->
 <script src="../asset/js/dashboard.js"></script>
-
 </body>
 </html>

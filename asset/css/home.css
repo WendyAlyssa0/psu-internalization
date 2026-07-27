@@ -39,7 +39,7 @@
 
 html, body {
   height: 100%;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Oswald', sans-serif;
   font-size: 14px;
   background: var(--slate-bg);
   color: var(--slate-800);
@@ -525,14 +525,6 @@ a { text-decoration: none; color: inherit; }
   color: var(--slate-400);
   margin-top: 2px;
 }
-
-/* ===================================================
-   SCROLLBAR
-   =================================================== */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--slate-200); border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: var(--slate-400); }
 
 /* ===================================================
    RESPONSIVE

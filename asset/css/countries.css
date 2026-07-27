@@ -5,31 +5,31 @@
    ============================================ */
 
 :root {
-  --color-bg:          #f0f2f5;
-  --color-surface:     #ffffff;
-  --color-border:      #dde1e7;
-  --color-navy:        #1a2a4a;
-  --color-navy-hover:  #243660;
-  --color-accent:      #2563eb;
+  --color-bg: #f0f2f5;
+  --color-surface: #ffffff;
+  --color-border: #dde1e7;
+  --color-navy: #1a2a4a;
+  --color-navy-hover: #243660;
+  --color-accent: #2563eb;
   --color-accent-soft: #eff4ff;
-  --color-success:     #16a34a;
-  --color-success-bg:  #dcfce7;
-  --color-danger:      #dc2626;
-  --color-danger-bg:   #fee2e2;
-  --color-warning:     #d97706;
-  --color-warning-bg:  #fef3c7;
-  --color-text:        #1e293b;
-  --color-muted:       #64748b;
+  --color-success: #16a34a;
+  --color-success-bg: #dcfce7;
+  --color-danger: #dc2626;
+  --color-danger-bg: #fee2e2;
+  --color-warning: #d97706;
+  --color-warning-bg: #fef3c7;
+  --color-text: #1e293b;
+  --color-muted: #64748b;
 
-  --radius-sm:  6px;
-  --radius-md:  10px;
-  --radius-lg:  14px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
 
-  --shadow-card: 0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
-  --shadow-modal: 0 8px 32px rgba(0,0,0,.18);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-modal: 0 8px 32px rgba(0, 0, 0, 0.18);
 
-  --font-ui: 'Inter', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-ui: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
 }
 
 /* ── Base ─────────────────────────────────── */
@@ -88,7 +88,10 @@ body {
   border-radius: var(--radius-sm);
   border: 1px solid transparent;
   cursor: pointer;
-  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+  transition:
+    background 0.15s,
+    transform 0.1s,
+    box-shadow 0.15s;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -105,7 +108,7 @@ body {
 
 .btn-primary:hover {
   background: #1d4ed8;
-  box-shadow: 0 2px 8px rgba(37,99,235,.35);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
 }
 
 .btn-success {
@@ -116,7 +119,7 @@ body {
 
 .btn-success:hover {
   background: #15803d;
-  box-shadow: 0 2px 8px rgba(22,163,74,.30);
+  box-shadow: 0 2px 8px rgba(22, 163, 74, 0.3);
 }
 
 .btn-warning {
@@ -156,13 +159,15 @@ body {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
   outline: none;
 }
 
 .form-control:focus {
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
 .form-control::placeholder {
@@ -199,8 +204,12 @@ form .row {
   align-items: center;
 }
 
-.col-md-4 { flex: 0 0 320px; }
-.col-md-2 { flex: none; }
+.col-md-4 {
+  flex: 0 0 320px;
+}
+.col-md-2 {
+  flex: none;
+}
 
 /* ── Table ────────────────────────────────── */
 
@@ -226,8 +235,12 @@ form .row {
   border: none;
 }
 
-.table thead th:first-child { border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
-.table thead th:last-child  { border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.table thead th:first-child {
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+.table thead th:last-child {
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
 
 .table-bordered td,
 .table-bordered th {
@@ -245,8 +258,12 @@ form .row {
   background: var(--color-accent-soft);
 }
 
-.table tbody tr:last-child td:first-child { border-radius: 0 0 0 var(--radius-sm); }
-.table tbody tr:last-child td:last-child  { border-radius: 0 0 var(--radius-sm) 0; }
+.table tbody tr:last-child td:first-child {
+  border-radius: 0 0 0 var(--radius-sm);
+}
+.table tbody tr:last-child td:last-child {
+  border-radius: 0 0 var(--radius-sm) 0;
+}
 
 /* Country Code — monospaced pill */
 .table tbody td:nth-child(2) {
@@ -257,7 +274,9 @@ form .row {
   letter-spacing: 0.06em;
 }
 
-.text-center { text-align: center; }
+.text-center {
+  text-align: center;
+}
 
 /* ── Badges ───────────────────────────────── */
 
@@ -373,4 +392,6 @@ form .row {
 /* ── Utility spacers ──────────────────────── */
 
 br + form,
-form + br + .table { margin-top: 0; }
+form + br + .table {
+  margin-top: 0;
+}
